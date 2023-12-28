@@ -1,0 +1,21 @@
+.dropdownContainer {
+    color: #a9b4bd;
+    font-weight: 500;
+    border: 1px solid #3e576b;
+    background-color: #28445B;
+}
+
+.dropdownContainer div {
+    padding: 6px 0 6px 12px;
+    cursor: pointer;
+}
+
+.dropdownContainer div:hover {
+    color: white;
+    background: #3e576b;
+}
+.outerContainer {
+    width: 150px;
+    height: 70vh;
+    overflow: auto;
+}

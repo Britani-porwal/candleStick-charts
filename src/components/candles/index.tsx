@@ -2,6 +2,7 @@ import { CandleSticksData } from "@/types/candleSticks";
 import getSeriesData from "@/utils/candle";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import TimeFrameDropdown from "../dropdown";
 
 interface CandleProps {
     candlesData: CandleSticksData
@@ -39,7 +40,10 @@ const Candles = ({ candlesData }: CandleProps) => {
         }
     }
 
-    return <ReactApexChart options={candleOptions} series={candleSeries} type="candlestick" height={650} />
+    return <div>
+        <TimeFrameDropdown />
+        <ReactApexChart options={candleOptions} series={candleSeries} type="candlestick" height={650} />
+        </div>
 }
 
 export default Candles
