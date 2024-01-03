@@ -16,6 +16,24 @@
 }
 .outerContainer {
     width: 150px;
-    height: 70vh;
     overflow: auto;
+    position: absolute;
+    z-index: 10;
+    border-radius: 3px;
+}
+
+.hide {
+    display: none;
+}
+
+.timeStampButton {
+    font-weight: 500;
+    width: 35px;
+    font-size: 13px;
+    color: #8b969f;
+    padding: 8px;
+    &:hover{
+        background: #28445B;
+        color: white;
+    }
 }

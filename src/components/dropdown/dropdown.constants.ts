@@ -15,7 +15,7 @@ export const TIMEFRAMES = [
     },
     {
         pattern: DROPDOWN_KEYS.DAYS,
-        values: ["1 day", "1 week", "1 month"]
+        values: ["1 Day", "1 Week", "1 Month"]
     }
 ]
 

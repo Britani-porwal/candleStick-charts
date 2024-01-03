@@ -11,7 +11,8 @@ const getSeriesData = (candlesData: CandleSticksData) => {
 
     candlesData.forEach((candle: Candle) => {
         let x = candle[0]
-        let y = [candle[1], candle[2], candle[3], candle[4], candle[5]]
+        let y = [candle[1], candle[3], candle[4], candle[2] ]
+        // Format required: [O, H, L, C]
 
         let Coordinates = {
             x,
@@ -31,3 +32,8 @@ const getSeriesData = (candlesData: CandleSticksData) => {
 }
 
 export default getSeriesData
+
+export const getShortHandValue = (selectedTimeFrame: string) => {
+    const splittedText = selectedTimeFrame.split(" ")
+    return splittedText[0] + splittedText[1][0]
+}

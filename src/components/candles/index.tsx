@@ -1,8 +1,10 @@
 import { CandleSticksData } from "@/types/candleSticks";
-import getSeriesData from "@/utils/candle";
+import getSeriesData, { getShortHandValue } from "@/utils/candle";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import TimeFrameDropdown from "../dropdown";
+import { getCandlesData } from "@/api/charts";
+import styles from "./candles.module.scss";
 
 interface CandleProps {
     candlesData: CandleSticksData
@@ -14,34 +16,69 @@ interface CandleProps {
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false })
 
 const Candles = ({ candlesData }: CandleProps) => {
-    // const [candleSeries, setCandleSeries] = useState(getSeriesData(candlesData))
+    const [selectedTimeFrame, setSelectedTimeFrame] = useState("1 minute");
+    const [candleSeries, setCandleSeries] = useState(getSeriesData(candlesData))
 
-    // useEffect(() => {
-    //     setCandleSeries(getSeriesData(candlesData))
-    // },
-    // [candleSeries])
-    const candleSeries = getSeriesData(candlesData)
+
+    const handleFetch = () => {
+        getCandlesData(getShortHandValue(selectedTimeFrame)).then((res) => {
+            setCandleSeries(getSeriesData(res))
+        })
+    }
+
+    useEffect(() => {
+        handleFetch()
+    }, [selectedTimeFrame])
+    
     const candleOptions: ApexCharts.ApexOptions = {
         chart: {
             type: "candlestick",
             height: 650
         },
         title: {
-            text: 'CandleStick Chart',
-            align: 'left'
+            text: 'CHART BTC/USD',
+            align: 'left',
+            style: {
+                color: 'white',
+            }
         },
         xaxis: {
-            type: 'datetime'
+            type: 'datetime',
+            labels:{
+               style:{
+                colors: '#8b969f'
+               }
+            },
         },
         yaxis: {
             labels: {
-                formatter: (value) => value.toFixed(2)
-            }
+                formatter: (value) => value.toFixed(2),
+                style: {
+                    colors: '#8b969f',
+                }
+            },
+            opposite: true,
+        },
+        tooltip: {
+            enabled: true,
+        },
+        grid: {
+            borderColor: '#2e4251',
+            yaxis: {
+                lines: {
+                  show: true,
+                }
+              },
+              xaxis: {
+                lines: {
+                  show: true,
+                }
+              },
         }
     }
 
-    return <div>
-        <TimeFrameDropdown />
+    return <div className={styles.page}>
+        <TimeFrameDropdown selectedTimeFrame={selectedTimeFrame} setSelectedTimeFrame={setSelectedTimeFrame} />
         <ReactApexChart options={candleOptions} series={candleSeries} type="candlestick" height={650} />
         </div>
 }
