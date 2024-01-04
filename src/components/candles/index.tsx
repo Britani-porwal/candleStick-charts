@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import TimeFrameDropdown from "../dropdown";
 import { getCandlesData } from "@/api/charts";
 import styles from "./candles.module.scss";
+import Orderbook from "../orderbook";
 
 interface CandleProps {
     candlesData: CandleSticksData
@@ -29,7 +30,7 @@ const Candles = ({ candlesData }: CandleProps) => {
     useEffect(() => {
         handleFetch()
     }, [selectedTimeFrame])
-    
+
     const candleOptions: ApexCharts.ApexOptions = {
         chart: {
             type: "candlestick",
@@ -44,10 +45,10 @@ const Candles = ({ candlesData }: CandleProps) => {
         },
         xaxis: {
             type: 'datetime',
-            labels:{
-               style:{
-                colors: '#8b969f'
-               }
+            labels: {
+                style: {
+                    colors: '#8b969f'
+                }
             },
         },
         yaxis: {
@@ -66,21 +67,22 @@ const Candles = ({ candlesData }: CandleProps) => {
             borderColor: '#2e4251',
             yaxis: {
                 lines: {
-                  show: true,
+                    show: true,
                 }
-              },
-              xaxis: {
+            },
+            xaxis: {
                 lines: {
-                  show: true,
+                    show: true,
                 }
-              },
+            },
         }
     }
 
     return <div className={styles.page}>
         <TimeFrameDropdown selectedTimeFrame={selectedTimeFrame} setSelectedTimeFrame={setSelectedTimeFrame} />
         <ReactApexChart options={candleOptions} series={candleSeries} type="candlestick" height={650} />
-        </div>
+        <Orderbook />
+    </div>
 }
 
 export default Candles

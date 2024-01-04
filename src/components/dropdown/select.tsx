@@ -5,20 +5,21 @@ import styles from './dropdown.module.scss'
 interface CustomSelectProps {
     pattern: DROPDOWN_KEYS;
     values: string[];
-    selectedTimeFrame: string;
     setSelectedTimeFrame: Dispatch<string>;
+    handleDropdownVisibility: () => void;
 }
 
 const CustomSelect = ({
     pattern,
     values,
-    selectedTimeFrame,
     setSelectedTimeFrame,
+    handleDropdownVisibility,
 }: CustomSelectProps) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const handleTimeSelect = (value: string) => {
         setSelectedTimeFrame(value);
+        handleDropdownVisibility();
     };
 
     const toogleDropdown = () => {
